@@ -1,3 +1,5 @@
+package Program_Siakad;
+
 import java.util.Scanner;
 
 class Mahasiswa {
@@ -7,7 +9,6 @@ class Mahasiswa {
     public String getNIM() {
         return this.nim;
     }
-
 
     public void setData(String nim, String nama) {
         this.nim = nim;
@@ -20,8 +21,9 @@ class Mahasiswa {
 }
    
  public class Siakad {
-    static int indexData = 0;
-    static Mahasiswa[] data = new Mahasiswa[10];
+     static int sizeData = 10;
+     static int indexData = 0;
+     static Mahasiswa[] data = new Mahasiswa [sizeData];
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -32,7 +34,9 @@ class Mahasiswa {
             System.out.println("2. Tampilkan data");
             System.out.println("3. Cari data");
             System.out.println("4. Edit data");
-            System.out.println("5. Keluar");
+            System.out.println("5. Hapus data (perulangan)");
+            System.out.println("6. Hapus data (rekursi)");
+            System.out.println("7. Keluar");
             System.out.print("Pilih menu = ");
             menu = scanner.nextInt();
             switch (menu) {
@@ -84,12 +88,31 @@ class Mahasiswa {
                         String namaEdit = scanner.next();
                         data[index].setData(nimEdit, namaEdit);
                     }
-                }
+                } break;
+                case 5: {
+                    System.out.print("Masukkan NIM data yang akan dihapus = ");
+                    String nim = scanner.next();
+                    int index = cariMahasiswa(nim);
+                    if (index==999) {
+                        System.out.println("Data yang Anda cari tidak ada");
+                    } else {
+                        hapusPerulangan(index);
+                    }
+                } break;
+                case 6: {
+                    System.out.print("Masukkan NIM data yang akan dihapus = ");
+                    String nim = scanner.next();
+                    int index = cariMahasiswa(nim);
+                    if (index==999) {
+                        System.out.println("Data yang Anda cari tidak ada");
+                    } else {
+                        hapusRekursi(index);
+                    }
+                } break;
             }
-        } while (menu!=5);
+        } while (menu!=7);
     }
 
-    
     public static int cariMahasiswa(String nim) {
         for (int i=0; i<indexData; i++) {
             if (nim.equals(data[i].getNIM())) {
@@ -97,5 +120,23 @@ class Mahasiswa {
             }
         }
         return 999;
+    }
+
+    public static void hapusPerulangan(int index) {
+        for (int i = index; i<indexData; i++) {
+            data[i] = data [i+1];
+        }
+        indexData--;
+        System.out.println("Data berhasil dihapus");
+    }
+
+    public static void hapusRekursi(int index) {
+        if (index<indexData) {
+            data[index] = data[index+1];
+            hapusRekursi(index+1);
+        } else {
+            indexData--;
+            System.out.println("Data berhasil dihapus");
+        }
     }
 }
