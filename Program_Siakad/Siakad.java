@@ -34,9 +34,12 @@ class Mahasiswa {
             System.out.println("2. Tampilkan data");
             System.out.println("3. Cari data");
             System.out.println("4. Edit data");
-            System.out.println("5. Hapus data (perulangan)");
-            System.out.println("6. Hapus data (rekursi)");
-            System.out.println("7. Keluar");
+            System.out.println("5. Hapus data (Perulangan)");
+            System.out.println("6. Hapus data (Rekursi)");
+            System.out.println("7. Urutkan data (Exchange Sort)");
+            System.out.println("8. Urutkan data (Selection Sort)");
+            System.out.println("9. Urutkan data (Bubble Sort)");
+            System.out.println("10. Keluar");
             System.out.print("Pilih menu = ");
             menu = scanner.nextInt();
             switch (menu) {
@@ -109,8 +112,29 @@ class Mahasiswa {
                         hapusRekursi(index);
                     }
                 } break;
+                case 7: {
+                    exchangeSort();
+                    System.out.println("Data telah diurutkan");
+                    for(int i=0; i<indexData; i++) {
+                        data[i].getData();
+                    };
+                } break;
+                case 8: {
+                    selectionSort();
+                    System.out.println("Data telah diurutkan");
+                    for(int i=0; i<indexData; i++) {
+                        data[i].getData();
+                    };
+                } break;
+                case 9: {
+                    bubbleSort();
+                    System.out.println("Data telah diurutkan");
+                    for(int i=0; i<indexData; i++) {
+                        data[i].getData();
+                    };
+                } break;
             }
-        } while (menu!=7);
+        } while (menu!=10);
     }
 
     public static int cariMahasiswa(String nim) {
@@ -137,6 +161,46 @@ class Mahasiswa {
         } else {
             indexData--;
             System.out.println("Data berhasil dihapus");
+        }
+    }
+
+    public static void exchangeSort() {
+        for (int i = 0; i<indexData-1; i++) {
+            for (int j = i+1; j<indexData; j++) {
+                if (data[i].getNIM().compareTo(data[j].getNIM())>0) {
+                    Mahasiswa temp = data[i];
+                    data[i] = data[j];
+                    data[j] = temp;
+                }
+            }
+        }
+    }
+
+    public static void selectionSort() {
+        for (int i = 0; i<indexData-1; i++) {
+            int indeks = i;
+            for (int j = i+1; j<indexData; j++) {
+                if(data[indeks].getNIM().compareTo(data[j].getNIM())>0) {
+                    indeks = j;
+                }
+            }
+            if (indeks!=i) {
+                Mahasiswa temp = data[i];
+                data[i] = data[indeks];
+                data[indeks] = temp;
+            }
+        }
+    }
+
+    public static void bubbleSort() {
+        for (int i = 0; i<indexData-1; i++) {
+            for (int j = 0; j<indexData-1; j++) {
+                if (data[j].getNIM().compareTo(data[j+1].getNIM())>0) {
+                    Mahasiswa temp = data[j];
+                    data[j] = data[j+1];
+                    data[j+1] = temp;
+                }
+            }
         }
     }
 }
