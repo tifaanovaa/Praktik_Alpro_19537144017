@@ -39,7 +39,8 @@ class Mahasiswa {
             System.out.println("7. Urutkan data (Exchange Sort)");
             System.out.println("8. Urutkan data (Selection Sort)");
             System.out.println("9. Urutkan data (Bubble Sort)");
-            System.out.println("10. Keluar");
+            System.out.println("10. Urutkan data (Shell Sort)");
+            System.out.println("11. Keluar");
             System.out.print("Pilih menu = ");
             menu = scanner.nextInt();
             switch (menu) {
@@ -133,8 +134,15 @@ class Mahasiswa {
                         data[i].getData();
                     };
                 } break;
+                case 10: {
+                    shellSort();
+                    System.out.println("Data telah diurutkan");
+                    for(int i=0; i<indexData; i++) {
+                        data[i].getData();
+                    };
+                } break; 
             }
-        } while (menu!=10);
+        } while (menu!=11);
     }
 
     public static int cariMahasiswa(String nim) {
@@ -201,6 +209,26 @@ class Mahasiswa {
                     data[j+1] = temp;
                 }
             }
+        }
+    }
+
+    public static void shellSort() {
+        int lompat = indexData;
+        while (lompat > 1) {
+            lompat = lompat / 2;
+            int i = indexData - lompat;
+            boolean tukar = false;
+            do {
+                tukar = false;
+                for (int j = 0; j<i; j++) {
+                    if (data[j].getNIM().compareTo(data[j+lompat].getNIM())>0) {
+                        Mahasiswa temp = data[j];
+                        data[j] = data[j+lompat];
+                        data[j+lompat] = temp;
+                        tukar = true;
+                    }
+                }
+            } while (tukar!=false);
         }
     }
 }
