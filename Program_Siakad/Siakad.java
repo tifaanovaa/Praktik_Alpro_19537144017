@@ -27,6 +27,7 @@ class Mahasiswa {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
         int menu = 0;
         do {
             System.out.println("Menu");
@@ -40,7 +41,9 @@ class Mahasiswa {
             System.out.println("8. Urutkan data (Selection Sort)");
             System.out.println("9. Urutkan data (Bubble Sort)");
             System.out.println("10. Urutkan data (Shell Sort)");
-            System.out.println("11. Keluar");
+            System.out.println("10. Urutkan data (Quick Sort)");
+            System.out.println("11. Cari data (Binary Search)");
+            System.out.println("12. Keluar");
             System.out.print("Pilih menu = ");
             menu = scanner.nextInt();
             switch (menu) {
@@ -140,9 +143,15 @@ class Mahasiswa {
                     for(int i=0; i<indexData; i++) {
                         data[i].getData();
                     };
-                } break; 
+                } break;
+                case 11: {
+                    shellSort();
+                    System.out.print("Masukkan NIM data yang Anda cari = ");
+                    String nim  = scanner.next();
+                    binarySearch(nim);
+                } break;
             }
-        } while (menu!=11);
+        } while (menu!=13);
     }
 
     public static int cariMahasiswa(String nim) {
@@ -229,6 +238,29 @@ class Mahasiswa {
                     }
                 }
             } while (tukar!=false);
+        }
+    }
+
+    public static void binarySearch(String nim) {
+        int l = 0;
+        int r = indexData;
+        boolean ketemu = false;
+        int m = 0;
+        while (l<=r && ketemu==false) {
+            m= (l+r)/2;
+            if (data[m].getNIM().equals(nim)) {
+                ketemu = true;
+            } else if (data[m].getNIM().compareTo(nim)<0) {
+                r = m - 1;
+            } else {
+                l= m + 1;
+            }
+        }
+        if (ketemu==false) {
+            System.out.println("Data yang Anda cari tidak ada");
+        } else {
+            System.out.println("Berikut data yang Anda cari");
+            data[m].getData();
         }
     }
 }
