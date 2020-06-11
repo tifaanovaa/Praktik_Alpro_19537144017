@@ -19,6 +19,7 @@ class Mahasiswa {
         System.out.println(this.nim+"  "+this.nama);
     }
 }
+
    
  public class Siakad {
      static int sizeData = 10;
@@ -41,9 +42,10 @@ class Mahasiswa {
             System.out.println("8. Urutkan data (Selection Sort)");
             System.out.println("9. Urutkan data (Bubble Sort)");
             System.out.println("10. Urutkan data (Shell Sort)");
-            System.out.println("10. Urutkan data (Quick Sort)");
-            System.out.println("11. Cari data (Binary Search)");
-            System.out.println("12. Keluar");
+            System.out.println("11. Urutkan data (Quick Sort)");
+            System.out.println("12. Cari data (Binary Search)");
+            System.out.println("13. Program UAS");
+            System.out.println("14. Keluar");
             System.out.print("Pilih menu = ");
             menu = scanner.nextInt();
             switch (menu) {
@@ -145,13 +147,27 @@ class Mahasiswa {
                     };
                 } break;
                 case 11: {
+                    quickSort();
+                    System.out.println("Data telah diurutkan");
+                    for(int i=0; i<indexData; i++) {
+                        data[i].getData();
+                    }
+                } break;
+                case 12: {
                     shellSort();
                     System.out.print("Masukkan NIM data yang Anda cari = ");
                     String nim  = scanner.next();
                     binarySearch(nim);
                 } break;
+                case 13: {
+                    UAS();
+                    System.out.println("Data telah diurutkan");
+                    for(int i=0; i<indexData; i++) {
+                        data[i].getData();
+                    };
+                } break;
             }
-        } while (menu!=13);
+        } while (menu!=14);
     }
 
     public static int cariMahasiswa(String nim) {
@@ -241,6 +257,11 @@ class Mahasiswa {
         }
     }
 
+    public static void quickSort() {
+        System.out.println("Berikut data yang Anda cari");
+    }
+
+
     public static void binarySearch(String nim) {
         int l = 0;
         int r = indexData;
@@ -261,6 +282,33 @@ class Mahasiswa {
         } else {
             System.out.println("Berikut data yang Anda cari");
             data[m].getData();
+        }
+    }
+
+    public static void UAS() {
+        if (indexData == 0) {
+            System.out.println("Data tidak ditemukan");
+        } else {
+            int jarak = indexData;
+            int susut = 13;
+            int urut = 0;
+            while (urut == 0) {
+                jarak = (jarak * 10) / susut;
+                if (jarak <= 1); {
+                    jarak = 1;
+                    urut = 1;
+                }
+                for (int i = 0; i+jarak < indexData; i++) {
+                    while (data[i].getNIM().compareTo(data[i+jarak].getNIM())>0) {
+                        Mahasiswa temp = data [i];
+                        data[i] = data[i+jarak];
+                        data[i+jarak] = temp;
+                        urut = 0;
+                    }
+                }
+            }
+            System.out.println("Data telah dirutkan. Silahkan tampilkan Data");
+
         }
     }
 }
